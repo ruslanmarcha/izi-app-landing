@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Приложения - Скачать</title>
     <style>
-        /* Основные стили, чтобы было как на Tilda */
+        /* Основные стили */
         :root {
             --bg-color: #f2f2f2;
             --text-color: #000000;
@@ -17,13 +17,12 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif; /* Похоже на TildaSans */
+            font-family: 'Arial', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.5;
         }
 
-        /* Контейнер для центровки */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -50,7 +49,7 @@
             .subtitle { font-size: 32px; }
         }
 
-        /* Дисклеймер (белый блок) */
+        /* Дисклеймер */
         .disclaimer {
             background: var(--white);
             padding: 30px;
@@ -74,18 +73,15 @@
             .disclaimer-text { font-size: 18px; }
         }
 
-        /* Секции платформ */
+        /* Секции */
         .section-title {
             font-size: 32px;
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 30px;
-            border-bottom: 2px solid #000;
             display: inline-block;
-            padding-bottom: 5px;
         }
 
-        /* Сетка карточек */
         .grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -100,7 +96,7 @@
             .grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* Карточка приложения */
+        /* Карточка */
         .card {
             background: var(--white);
             border: 1px solid #000;
@@ -150,7 +146,6 @@
             cursor: pointer;
         }
 
-        /* Черная кнопка (Скачать) */
         .btn-black {
             background-color: #000;
             color: #fff;
@@ -160,7 +155,6 @@
             opacity: 0.8;
         }
 
-        /* Белая кнопка (Инструкция) */
         .btn-outline {
             background-color: transparent;
             color: #000;
@@ -171,7 +165,7 @@
             color: #fff;
         }
 
-        /* Подвал */
+        /* Футер */
         footer {
             background-color: #000;
             color: #fff;
@@ -202,18 +196,18 @@
                 </svg>
             </div>
             <div class="disclaimer-text">
-                <strong>Диклеймер: У ИЗИ нет собственного приложения в традиционном понимании.</strong><br><br>
-                Мы используем решения с открытым исходным кодом. Эти приложения разработаны сторонними разработчиками, но полностью совместимы с нашим сервисом (протокол VLESS).
+                <strong>Диклеймер: У ИЗИ нет собственного приложения в традиционном понимании, мы обслуживанием сети и серверы.</strong><br><br>
+                Мы используем решения с открытым исходным кодом, чтобы обеспечить прозрачность работы сервиса. Эти приложения разработаны сторонними разработчиками, но они полностью совместимы с нашим сервисом. Также вы можете использовать любые другие, совместимые с протоколом VLESS, однако поддержку по ним оказать не сможем.
             </div>
         </div>
 
-        <div class="section-title">Apple (iOS, MacOS)</div>
+        <div class="section-title">Apple:</div>
         <div class="grid">
             <div class="card">
                 <div>
                     <div class="card-uptitle">V2Box</div>
                     <div class="card-title">Для iOS, iPadOS и MacOS</div>
-                    <div class="card-descr">Бесплатное приложение. Присутствует реклама от разработчика.</div>
+                    <div class="card-descr">Бесплатное приложение. Присутствует реклама от разработчика</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" target="_blank" class="btn btn-black">Скачать</a>
@@ -225,7 +219,7 @@
                 <div>
                     <div class="card-uptitle">Streisand</div>
                     <div class="card-title">Для iPhone, iPad и MacOS</div>
-                    <div class="card-descr">Бесплатное приложение.</div>
+                    <div class="card-descr">Бесплатное приложение</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://apps.apple.com/app/id6450534064" target="_blank" class="btn btn-black">Скачать</a>
@@ -236,8 +230,8 @@
             <div class="card">
                 <div>
                     <div class="card-uptitle">Hiddify</div>
-                    <div class="card-title">Для MacOS (Intel & Silicon)</div>
-                    <div class="card-descr">Бесплатное приложение.</div>
+                    <div class="card-title">Для MacOS на Intel и Silicon</div>
+                    <div class="card-descr">Бесплатное приложение</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/Hiddify-MacOS.dmg" target="_blank" class="btn btn-black">Скачать</a>
@@ -248,7 +242,7 @@
                 <div>
                     <div class="card-uptitle">Hiddify</div>
                     <div class="card-title">Для iPhone и iPad</div>
-                    <div class="card-descr">Бесплатное. Недоступно в РФ AppStore.</div>
+                    <div class="card-descr">Бесплатное приложение. Недоступно в российской AppStore</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://apps.apple.com/app/id6596777532" target="_blank" class="btn btn-black">Скачать</a>
@@ -259,8 +253,20 @@
             <div class="card">
                 <div>
                     <div class="card-uptitle">Shadowrocket</div>
-                    <div class="card-title">Для iOS и MacOS</div>
-                    <div class="card-descr">(!) Платное приложение. Самое мощное.</div>
+                    <div class="card-title">Для iOS, iPadOS и MacOS</div>
+                    <div class="card-descr">(!) Платное приложение</div>
+                </div>
+                <div class="btn-wrapper">
+                    <a href="https://apps.apple.com/ru/app/shadowrocket/id932747118" target="_blank" class="btn btn-black">Скачать</a>
+                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
+                </div>
+            </div>
+
+             <div class="card">
+                <div>
+                    <div class="card-uptitle">Shadowrocket</div>
+                    <div class="card-title">Для Apple TV</div>
+                    <div class="card-descr">(!) Платное приложение</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://apps.apple.com/ru/app/shadowrocket/id932747118" target="_blank" class="btn btn-black">Скачать</a>
@@ -269,13 +275,13 @@
             </div>
         </div>
 
-        <div class="section-title">Windows</div>
+        <div class="section-title">Windows:</div>
         <div class="grid">
             <div class="card">
                 <div>
                     <div class="card-uptitle">Hiddify</div>
                     <div class="card-title">Для Windows</div>
-                    <div class="card-descr">Бесплатное приложение. Рекомендуем.</div>
+                    <div class="card-descr">Бесплатное приложение</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://github.com/hiddify/hiddify-app/blob/main/README_ru.md" target="_blank" class="btn btn-black">Скачать</a>
@@ -287,21 +293,21 @@
                 <div>
                     <div class="card-uptitle">Nekoray</div>
                     <div class="card-title">Для Windows</div>
-                    <div class="card-descr">(!) Для продвинутых пользователей.</div>
+                    <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
                 </div>
                 <div class="btn-wrapper">
-                    <span class="btn btn-black" style="cursor: default; opacity: 0.5;">Скачать в Google</span>
+                    <span class="btn btn-black" style="cursor: default; opacity: 0.5;">Скачать</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-title">Android</div>
+        <div class="section-title">Android:</div>
         <div class="grid">
             <div class="card">
                 <div>
                     <div class="card-uptitle">Hiddify</div>
-                    <div class="card-title">Смартфоны и планшеты</div>
-                    <div class="card-descr">Бесплатное приложение.</div>
+                    <div class="card-title">Для смартфона и планшета</div>
+                    <div class="card-descr">Бесплатное приложение</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" class="btn btn-black">Скачать</a>
@@ -312,8 +318,8 @@
             <div class="card">
                 <div>
                     <div class="card-uptitle">V2Box</div>
-                    <div class="card-title">Смартфоны и планшеты</div>
-                    <div class="card-descr">Бесплатное приложение.</div>
+                    <div class="card-title">Для смартфона и планшета</div>
+                    <div class="card-descr">Бесплатное приложение</div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box&amp;hl=en" target="_blank" class="btn btn-black">Скачать</a>
@@ -324,8 +330,8 @@
             <div class="card">
                 <div>
                     <div class="card-uptitle">V2Box</div>
-                    <div class="card-title">Для Smart TV (Android)</div>
-                    <div class="card-descr">Установка через APK.</div>
+                    <div class="card-title">Для Smart TV (на Android)</div>
+                    <div class="card-descr"></div>
                 </div>
                 <div class="btn-wrapper">
                     <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
@@ -335,22 +341,22 @@
              <div class="card">
                 <div>
                     <div class="card-uptitle">Nekoray</div>
-                    <div class="card-title">Для Android</div>
-                    <div class="card-descr">(!) Без техподдержки.</div>
+                    <div class="card-title">Для смартфона и планшета</div>
+                    <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
                 </div>
                 <div class="btn-wrapper">
-                    <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.3.1/NB4A-1.3.1-arm64-v8a.apk" target="_blank" class="btn btn-black">Скачать APK</a>
+                    <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.3.1/NB4A-1.3.1-arm64-v8a.apk" target="_blank" class="btn btn-black">Скачать</a>
                 </div>
             </div>
         </div>
         
-         <div class="section-title">Linux</div>
+         <div class="section-title">Linux:</div>
          <div class="grid">
              <div class="card">
                  <div>
                      <div class="card-uptitle">Hiddify</div>
                      <div class="card-title">Для Linux</div>
-                     <div class="card-descr">Desktop версия.</div>
+                     <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
                  </div>
                  <div class="btn-wrapper">
                      <a href="https://github.com/hiddify/hiddify-app/blob/main/README_ru.md" target="_blank" class="btn btn-black">Скачать</a>
@@ -361,7 +367,7 @@
     </div>
 
     <footer>
-        <p>© 2022-2025 izi.rocks</p>
+        <p>© Since 2022. izi.rocks</p>
         <p>
             <a href="#">Документы</a> | 
             <a href="#">Поддержка</a>
