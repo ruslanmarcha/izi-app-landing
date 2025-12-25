@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Приложения - Скачать</title>
     <style>
-        /* Основные стили */
+        /* Настройки страницы */
         :root {
             --bg-color: #f2f2f2;
             --text-color: #000000;
             --white: #ffffff;
-            --btn-bg: #000000;
-            --btn-text: #ffffff;
+            --btn-black-bg: #000000;
+            --btn-black-text: #ffffff;
         }
 
         body {
@@ -21,12 +21,19 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+            flex: 1;
         }
 
         /* Заголовки */
@@ -49,11 +56,10 @@
             .subtitle { font-size: 32px; }
         }
 
-        /* Дисклеймер */
+        /* Блок дисклеймера */
         .disclaimer {
             background: var(--white);
             padding: 30px;
-            border-radius: 0;
             margin-bottom: 60px;
             display: flex;
             align-items: flex-start;
@@ -63,6 +69,7 @@
         .disclaimer-icon svg {
             width: 24px;
             height: 24px;
+            flex-shrink: 0;
         }
 
         .disclaimer-text {
@@ -73,7 +80,7 @@
             .disclaimer-text { font-size: 18px; }
         }
 
-        /* Секции */
+        /* Заголовки разделов (Apple, Windows...) */
         .section-title {
             font-size: 32px;
             font-weight: 700;
@@ -82,6 +89,7 @@
             display: inline-block;
         }
 
+        /* Сетка карточек */
         .grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -89,10 +97,10 @@
             margin-bottom: 60px;
         }
 
-        @media (min-width: 600px) {
+        @media (min-width: 650px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media (min-width: 900px) {
+        @media (min-width: 960px) {
             .grid { grid-template-columns: repeat(3, 1fr); }
         }
 
@@ -106,26 +114,32 @@
             justify-content: space-between;
             height: 100%;
             box-sizing: border-box;
+            min-height: 280px;
+        }
+
+        .card-content {
+            margin-bottom: 20px;
         }
 
         .card-uptitle {
             font-size: 14px;
             text-transform: uppercase;
             opacity: 0.7;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .card-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             line-height: 1.2;
+            text-transform: uppercase;
         }
 
         .card-descr {
             font-size: 14px;
-            margin-bottom: 25px;
-            flex-grow: 1;
+            line-height: 1.4;
         }
 
         /* Кнопки */
@@ -133,17 +147,19 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 12px 24px;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             text-align: center;
-            transition: 0.2s;
+            transition: all 0.2s ease;
             cursor: pointer;
+            border-radius: 0;
         }
 
         .btn-black {
@@ -165,7 +181,7 @@
             color: #fff;
         }
 
-        /* Футер */
+        /* Подвал */
         footer {
             background-color: #000;
             color: #fff;
@@ -173,12 +189,6 @@
             text-align: center;
             font-size: 12px;
             margin-top: 40px;
-        }
-        
-        footer a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
         }
     </style>
 </head>
@@ -191,7 +201,7 @@
         <div class="disclaimer">
             <div class="disclaimer-icon">
                 <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" fill="black"/>
+                    <circle cx="12" cy="12" r="11" fill="black"/>
                     <path d="M11 7h2v2h-2zm0 4h2v6h-2z" fill="white"/>
                 </svg>
             </div>
@@ -204,7 +214,7 @@
         <div class="section-title">Apple:</div>
         <div class="grid">
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">V2Box</div>
                     <div class="card-title">Для iOS, iPadOS и MacOS</div>
                     <div class="card-descr">Бесплатное приложение. Присутствует реклама от разработчика</div>
@@ -216,7 +226,7 @@
             </div>
 
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Streisand</div>
                     <div class="card-title">Для iPhone, iPad и MacOS</div>
                     <div class="card-descr">Бесплатное приложение</div>
@@ -228,7 +238,7 @@
             </div>
 
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Hiddify</div>
                     <div class="card-title">Для MacOS на Intel и Silicon</div>
                     <div class="card-descr">Бесплатное приложение</div>
@@ -238,8 +248,9 @@
                     <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
                 </div>
             </div>
+
              <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Hiddify</div>
                     <div class="card-title">Для iPhone и iPad</div>
                     <div class="card-descr">Бесплатное приложение. Недоступно в российской AppStore</div>
@@ -251,7 +262,7 @@
             </div>
 
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Shadowrocket</div>
                     <div class="card-title">Для iOS, iPadOS и MacOS</div>
                     <div class="card-descr">(!) Платное приложение</div>
@@ -263,7 +274,7 @@
             </div>
 
              <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Shadowrocket</div>
                     <div class="card-title">Для Apple TV</div>
                     <div class="card-descr">(!) Платное приложение</div>
@@ -278,7 +289,7 @@
         <div class="section-title">Windows:</div>
         <div class="grid">
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Hiddify</div>
                     <div class="card-title">Для Windows</div>
                     <div class="card-descr">Бесплатное приложение</div>
@@ -290,13 +301,13 @@
             </div>
 
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Nekoray</div>
                     <div class="card-title">Для Windows</div>
                     <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
                 </div>
                 <div class="btn-wrapper">
-                    <span class="btn btn-black" style="cursor: default; opacity: 0.5;">Скачать</span>
+                    <a href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" class="btn btn-black">Скачать</a>
                 </div>
             </div>
         </div>
@@ -304,7 +315,7 @@
         <div class="section-title">Android:</div>
         <div class="grid">
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Hiddify</div>
                     <div class="card-title">Для смартфона и планшета</div>
                     <div class="card-descr">Бесплатное приложение</div>
@@ -316,7 +327,7 @@
             </div>
 
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">V2Box</div>
                     <div class="card-title">Для смартфона и планшета</div>
                     <div class="card-descr">Бесплатное приложение</div>
@@ -328,7 +339,7 @@
             </div>
             
             <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">V2Box</div>
                     <div class="card-title">Для Smart TV (на Android)</div>
                     <div class="card-descr"></div>
@@ -339,7 +350,7 @@
             </div>
 
              <div class="card">
-                <div>
+                <div class="card-content">
                     <div class="card-uptitle">Nekoray</div>
                     <div class="card-title">Для смартфона и планшета</div>
                     <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
@@ -353,7 +364,7 @@
          <div class="section-title">Linux:</div>
          <div class="grid">
              <div class="card">
-                 <div>
+                 <div class="card-content">
                      <div class="card-uptitle">Hiddify</div>
                      <div class="card-title">Для Linux</div>
                      <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
@@ -367,11 +378,7 @@
     </div>
 
     <footer>
-        <p>© Since 2022. izi.rocks</p>
-        <p>
-            <a href="#">Документы</a> | 
-            <a href="#">Поддержка</a>
-        </p>
+        <div>© Since 2022. izi.rocks</div>
     </footer>
 
 </body>
