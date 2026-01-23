@@ -2,384 +2,1637 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приложения - Скачать</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>FAQ - izi.rocks</title>
     <style>
-        /* Настройки страницы */
+        /* === ОСНОВНЫЕ СТИЛИ === */
         :root {
             --bg-color: #f2f2f2;
             --text-color: #000000;
             --white: #ffffff;
-            --btn-black-bg: #000000;
-            --btn-black-text: #ffffff;
+            --black: #000000;
+            --gray-light: #f8f8f8;
+            --gray-border: #e0e0e0;
+            --primary: #000000;
+            --primary-hover: #333333;
+            --container-padding: 16px;
+            --header-margin: 40px 0 30px 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--container-padding);
             width: 100%;
-            box-sizing: border-box;
             flex: 1;
         }
 
-        /* Заголовки */
+        /* === ШАПКА === */
+        .page-header {
+            margin: var(--header-margin);
+        }
+
         h1 {
-            font-size: 42px;
+            font-size: clamp(28px, 8vw, 62px);
             font-weight: 900;
             text-transform: uppercase;
-            margin-bottom: 10px;
-            margin-top: 60px;
+            margin: 0 0 12px 0;
+            line-height: 1.1;
+            word-break: break-word;
         }
         
-        .subtitle {
+        .page-subtitle {
+            font-size: clamp(18px, 4vw, 28px);
+            font-weight: 300;
+            color: #666;
+            max-width: 800px;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* === ПОИСК === */
+        .faq-search {
+            margin: 0 0 30px 0;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 20px 18px 52px;
+            font-size: 16px;
+            border: 1px solid var(--gray-border);
+            border-radius: 8px;
+            background-color: var(--white);
+            transition: border-color 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            font-size: clamp(16px, 4vw, 18px);
+            min-height: 56px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--black);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            pointer-events: none;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-results {
+            margin: 8px 0 0 0;
+            font-size: clamp(14px, 3vw, 16px);
+            color: #666;
+            min-height: 20px;
+        }
+
+        /* === КАТЕГОРИИ === */
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0 0 30px 0;
+            padding: 0 0 20px 0;
+            border-bottom: 1px solid var(--gray-border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding-bottom: 10px;
+        }
+
+        .faq-categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            padding: 12px 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-border);
+            border-radius: 8px;
+            font-size: clamp(14px, 3vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            color: var(--text-color);
+            flex-shrink: 0;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .category-btn:hover {
+            border-color: var(--black);
+            background-color: var(--gray-light);
+        }
+
+        .category-btn.active {
+            background-color: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        /* === СЕКЦИИ FAQ === */
+        .faq-section {
+            margin: 0 0 50px 0;
+        }
+
+        .section-title {
+            font-size: clamp(24px, 6vw, 32px);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0 0 25px 0;
+            display: inline-block;
+            position: relative;
+            line-height: 1.2;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--black);
+        }
+
+        /* === АККОРДЕОН === */
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--gray-border);
+            border-radius: 8px;
+            margin: 0 0 12px 0;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 60px 20px 20px;
+            font-size: clamp(16px, 4vw, 18px);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--white);
+            transition: background-color 0.2s ease;
+            position: relative;
+            min-height: 70px;
+            line-height: 1.4;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .faq-question:hover {
+            background-color: var(--gray-light);
+        }
+
+        .faq-question::after {
+            content: '+';
             font-size: 24px;
             font-weight: 300;
-            margin-bottom: 40px;
-        }
-
-        @media (min-width: 768px) {
-            h1 { font-size: 62px; }
-            .subtitle { font-size: 32px; }
-        }
-
-        /* Блок дисклеймера */
-        .disclaimer {
-            background: var(--white);
-            padding: 30px;
-            margin-bottom: 60px;
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        .disclaimer-icon svg {
+            color: var(--black);
+            transition: transform 0.3s ease;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             width: 24px;
             height: 24px;
-            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .disclaimer-text {
-            font-size: 14px;
+        .faq-item.active .faq-question::after {
+            content: '−';
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 10000px;
+        }
+
+        .faq-answer-content {
+            font-size: clamp(15px, 3vw, 16px);
+            line-height: 1.6;
+            color: #444;
+            padding: 0 20px 25px 20px;
+        }
+
+        .faq-answer-content p {
+            margin: 0 0 15px 0;
+        }
+
+        .faq-answer-content ul, .faq-answer-content ol {
+            margin: 0 0 15px 20px;
+            padding: 0;
+        }
+
+        .faq-answer-content li {
+            margin: 0 0 8px 0;
+        }
+
+        .faq-answer-content h3, 
+        .faq-answer-content h4 {
+            font-size: clamp(16px, 4vw, 18px);
+            font-weight: 700;
+            margin: 20px 0 10px 0;
+            line-height: 1.3;
+        }
+
+        /* === БЛОК ПРИЛОЖЕНИЙ === */
+        .apps-disclaimer {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: clamp(15px, 3vw, 20px);
+            margin: 0 0 25px 0;
+            border-radius: 6px;
+            font-size: clamp(15px, 3vw, 16px);
+            line-height: 1.5;
+        }
+
+        .apps-disclaimer strong {
+            font-weight: 700;
+            display: block;
+            margin: 0 0 10px 0;
+        }
+
+        .apps-platform-title {
+            font-size: clamp(20px, 5vw, 24px);
+            font-weight: 700;
+            margin: 35px 0 18px 0;
+            padding: 0 0 10px 0;
+            border-bottom: 2px solid #000;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 0 0 35px 0;
+        }
+
+        @media (min-width: 480px) {
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (min-width: 768px) {
-            .disclaimer-text { font-size: 18px; }
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
         }
 
-        /* Заголовки разделов (Apple, Windows...) */
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            display: inline-block;
+        @media (min-width: 1024px) {
+            .apps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-        /* Сетка карточек */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        @media (min-width: 650px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (min-width: 960px) {
-            .grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        /* Карточка */
-        .card {
+        .app-card {
             background: var(--white);
-            border: 1px solid #000;
-            padding: 30px;
+            border: 1px solid var(--gray-border);
+            border-radius: 10px;
+            padding: clamp(18px, 3vw, 25px);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            transition: all 0.3s ease;
             height: 100%;
-            box-sizing: border-box;
-            min-height: 280px;
         }
 
-        .card-content {
-            margin-bottom: 20px;
+        .app-card:hover {
+            border-color: var(--black);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
-        .card-uptitle {
-            font-size: 14px;
+        .app-card-header {
+            margin: 0 0 12px 0;
+        }
+
+        .app-card-platform {
+            font-size: clamp(13px, 3vw, 14px);
             text-transform: uppercase;
-            opacity: 0.7;
-            margin-bottom: 8px;
+            color: #666;
             font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0 0 5px 0;
         }
 
-        .card-title {
-            font-size: 20px;
+        .app-card-title {
+            font-size: clamp(18px, 4vw, 20px);
             font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1.2;
+            line-height: 1.3;
+            margin: 0 0 10px 0;
             text-transform: uppercase;
         }
 
-        .card-descr {
-            font-size: 14px;
-            line-height: 1.4;
+        .app-card-description {
+            font-size: clamp(14px, 3vw, 16px);
+            color: #444;
+            line-height: 1.5;
+            margin: 0 0 18px 0;
+            flex-grow: 1;
         }
 
-        /* Кнопки */
-        .btn-wrapper {
+        /* === КНОПКИ === */
+        .app-card-buttons {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            flex-wrap: wrap;
-            margin-top: auto;
+            margin: auto 0 0 0;
+        }
+
+        @media (min-width: 400px) {
+            .app-card-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            font-size: clamp(14px, 3vw, 15px);
             font-weight: 600;
-            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
             transition: all 0.2s ease;
+            text-align: center;
+            min-height: 48px;
+            border: 1px solid transparent;
             cursor: pointer;
-            border-radius: 0;
+            white-space: nowrap;
+            flex: 1;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        .btn-black {
-            background-color: #000;
-            color: #fff;
-            border: 1px solid #000;
-        }
-        .btn-black:hover {
-            opacity: 0.8;
+        @media (min-width: 400px) {
+            .btn {
+                flex: none;
+                min-width: 120px;
+            }
         }
 
-        .btn-outline {
-            background-color: transparent;
-            color: #000;
-            border: 1px solid #000;
-        }
-        .btn-outline:hover {
-            background-color: #000;
-            color: #fff;
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
         }
 
-        /* Подвал */
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--black);
+            border-color: var(--gray-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-light);
+            border-color: var(--black);
+        }
+
+        /* === УТИЛИТЫ === */
+        .note, .warning, .info, .legal-note {
+            padding: clamp(15px, 3vw, 20px);
+            margin: 18px 0;
+            border-radius: 6px;
+            font-size: clamp(15px, 3vw, 16px);
+            line-height: 1.5;
+            border-left-width: 4px;
+            border-left-style: solid;
+        }
+
+        .note {
+            background-color: #fff8e1;
+            border-left-color: #ffc107;
+        }
+
+        .warning {
+            background-color: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .info {
+            background-color: #e3f2fd;
+            border-left-color: #2196f3;
+        }
+
+        .legal-note {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-left-color: #666;
+        }
+
+        /* ТАРИФЫ */
+        .tariff-comparison {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 640px) {
+            .tariff-comparison {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .tariff-comparison {
+                gap: 24px;
+            }
+        }
+
+        .tariff-card {
+            border: 1px solid var(--gray-border);
+            border-radius: 10px;
+            padding: clamp(20px, 3vw, 25px);
+            background: var(--white);
+        }
+
+        .tariff-card.featured {
+            border-color: var(--black);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .tariff-name {
+            font-size: clamp(20px, 4vw, 24px);
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+
+        .tariff-price {
+            font-size: clamp(24px, 5vw, 28px);
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            color: var(--black);
+        }
+
+        .tariff-features {
+            list-style: none;
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+
+        .tariff-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: clamp(15px, 3vw, 16px);
+            line-height: 1.5;
+        }
+
+        .tariff-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* === ПОДВАЛ === */
         footer {
             background-color: #000;
             color: #fff;
-            padding: 40px 20px;
+            padding: 30px var(--container-padding);
             text-align: center;
-            font-size: 12px;
-            margin-top: 40px;
+            font-size: clamp(12px, 3vw, 14px);
+            margin: 60px 0 0 0;
+        }
+
+        .footer-links {
+            margin: 12px 0 0 0;
+            font-size: clamp(11px, 3vw, 13px);
+            opacity: 0.7;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        /* === ПОИСК === */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            display: none;
+            font-size: clamp(15px, 3vw, 16px);
+        }
+
+        .no-results h3 {
+            font-size: clamp(18px, 4vw, 20px);
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+
+        .highlight {
+            background-color: rgba(255, 235, 59, 0.3);
+            animation: highlight 1s ease;
+        }
+
+        @keyframes highlight {
+            0% { background-color: rgba(255, 235, 59, 0.8); }
+            100% { background-color: rgba(255, 235, 59, 0.3); }
+        }
+
+        /* === ОПТИМИЗАЦИЯ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ (до 320px) === */
+        @media (max-width: 320px) {
+            :root {
+                --container-padding: 12px;
+                --header-margin: 30px 0 20px 0;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .page-subtitle {
+                font-size: 16px;
+            }
+            
+            .faq-question {
+                padding: 15px 50px 15px 15px;
+                min-height: 60px;
+            }
+            
+            .faq-question::after {
+                right: 15px;
+            }
+            
+            .category-btn {
+                padding: 10px 15px;
+                min-height: 40px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .btn {
+                padding: 12px 16px;
+                min-height: 44px;
+            }
+        }
+
+        /* === ОПТИМИЗАЦИЯ ДЛЯ ТАБЛЕТОВ (768px - 1024px) === */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .app-card-buttons {
+                flex-direction: row;
+            }
+            
+            .btn {
+                min-width: 140px;
+            }
+        }
+
+        /* === ОПТИМИЗАЦИЯ ДЛЯ БОЛЬШИХ ЭКРАНОВ (более 1440px) === */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            .faq-categories {
+                justify-content: center;
+            }
+            
+            .category-btn {
+                padding: 14px 24px;
+            }
+        }
+
+        /* === ПОДДЕРЖКА ТЕМНОЙ ТЕМЫ === */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #ffffff;
+                --white: #1e1e1e;
+                --black: #ffffff;
+                --gray-light: #2a2a2a;
+                --gray-border: #333333;
+                --primary: #ffffff;
+                --primary-hover: #cccccc;
+            }
+            
+            body {
+                color-scheme: dark;
+                color: var(--text-color);
+            }
+            
+            .page-subtitle,
+            .search-results,
+            .faq-answer-content,
+            .app-card-description,
+            .tariff-features li,
+            .note,
+            .warning,
+            .info,
+            .legal-note,
+            .app-card-platform,
+            .category-btn:not(.active),
+            .search-icon {
+                color: #cccccc;
+            }
+            
+            .search-input {
+                background-color: var(--white);
+                color: var(--text-color);
+                border-color: var(--gray-border);
+            }
+            
+            .faq-answer-content {
+                color: #cccccc;
+            }
+            
+            .apps-disclaimer, .note {
+                background-color: #332900;
+                border-left-color: #ffc107;
+                color: #ffecb3;
+            }
+            
+            .warning {
+                background-color: #330000;
+                border-left-color: #f44336;
+                color: #ffcdd2;
+            }
+            
+            .info {
+                background-color: #002633;
+                border-left-color: #2196f3;
+                color: #bbdefb;
+            }
+            
+            .legal-note {
+                background-color: #2a2a2a;
+                border-color: #444;
+                color: #cccccc;
+            }
+            
+            .tariff-card {
+                background-color: var(--white);
+            }
+            
+            .tariff-features li {
+                border-bottom-color: #333;
+                color: #cccccc;
+            }
+            
+            .apps-platform-title {
+                color: var(--text-color);
+                border-bottom-color: var(--text-color);
+            }
+            
+            .app-card {
+                background-color: var(--white);
+            }
+            
+            .app-card-description {
+                color: #cccccc;
+            }
+            
+            .btn-secondary {
+                color: var(--text-color);
+                border-color: #555;
+            }
+            
+            .btn-secondary:hover {
+                background-color: #333;
+                border-color: var(--text-color);
+            }
+        }
+
+        /* === УЛУЧШЕНИЕ ДОСТУПНОСТИ === */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* === ПОДДЕРЖКА ЛАНДШАФТНОЙ ОРИЕНТАЦИИ === */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .page-header {
+                margin: 20px 0 15px 0;
+            }
+            
+            .faq-search {
+                margin: 0 0 20px 0;
+            }
+            
+            .faq-categories {
+                padding-bottom: 15px;
+                margin: 0 0 20px 0;
+            }
+            
+            .faq-section {
+                margin: 0 0 30px 0;
+            }
+            
+            .faq-question {
+                padding: 12px 50px 12px 15px;
+                min-height: 50px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Приложения</h1>
-        <div class="subtitle">Для всех популярных платформ</div>
-
-        <div class="disclaimer">
-            <div class="disclaimer-icon">
-                <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="11" fill="black"/>
-                    <path d="M11 7h2v2h-2zm0 4h2v6h-2z" fill="white"/>
-                </svg>
-            </div>
-            <div class="disclaimer-text">
-                <strong>Диклеймер: У ИЗИ нет собственного приложения в традиционном понимании, мы обслуживанием сети и серверы.</strong><br><br>
-                Мы используем решения с открытым исходным кодом, чтобы обеспечить прозрачность работы сервиса. Эти приложения разработаны сторонними разработчиками, но они полностью совместимы с нашим сервисом. Также вы можете использовать любые другие, совместимые с протоколом VLESS, однако поддержку по ним оказать не сможем.
+        <div class="page-header">
+            <h1>FAQ</h1>
+            <div class="page-subtitle">
+                Найдите ответы на все вопросы о подключении, тарифах и использовании сервиса
             </div>
         </div>
 
-        <div class="section-title">Apple:</div>
-        <div class="grid">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">V2Box</div>
-                    <div class="card-title">Для iOS, iPadOS и MacOS</div>
-                    <div class="card-descr">Бесплатное приложение. Присутствует реклама от разработчика</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Streisand</div>
-                    <div class="card-title">Для iPhone, iPad и MacOS</div>
-                    <div class="card-descr">Бесплатное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://apps.apple.com/app/id6450534064" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Hiddify</div>
-                    <div class="card-title">Для MacOS на Intel и Silicon</div>
-                    <div class="card-descr">Бесплатное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/Hiddify-MacOS.dmg" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
-
-             <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Hiddify</div>
-                    <div class="card-title">Для iPhone и iPad</div>
-                    <div class="card-descr">Бесплатное приложение. Недоступно в российской AppStore</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://apps.apple.com/app/id6596777532" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Shadowrocket</div>
-                    <div class="card-title">Для iOS, iPadOS и MacOS</div>
-                    <div class="card-descr">(!) Платное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://apps.apple.com/ru/app/shadowrocket/id932747118" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
-
-             <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Shadowrocket</div>
-                    <div class="card-title">Для Apple TV</div>
-                    <div class="card-descr">(!) Платное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://apps.apple.com/ru/app/shadowrocket/id932747118" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
+        <!-- Поиск -->
+        <div class="faq-search">
+            <div class="search-icon">🔍</div>
+            <input type="text" class="search-input" placeholder="Введите вопрос или ключевое слово...">
+            <div class="search-results">Начните вводить текст для поиска</div>
         </div>
 
-        <div class="section-title">Windows:</div>
-        <div class="grid">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Hiddify</div>
-                    <div class="card-title">Для Windows</div>
-                    <div class="card-descr">Бесплатное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://github.com/hiddify/hiddify-app/blob/main/README_ru.md" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Nekoray</div>
-                    <div class="card-title">Для Windows</div>
-                    <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" class="btn btn-black">Скачать</a>
-                </div>
-            </div>
+        <!-- Категории -->
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="all">Все вопросы</button>
+            <button class="category-btn" data-category="tariffs">Тарифы и оплата</button>
+            <button class="category-btn" data-category="apps">Приложения</button>
+            <button class="category-btn" data-category="privacy">Конфиденциальность</button>
+            <button class="category-btn" data-category="usage">Использование</button>
+            <button class="category-btn" data-category="legal">Юридические вопросы</button>
         </div>
 
-        <div class="section-title">Android:</div>
-        <div class="grid">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Hiddify</div>
-                    <div class="card-title">Для смартфона и планшета</div>
-                    <div class="card-descr">Бесплатное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
+        <!-- Сообщение при отсутствии результатов -->
+        <div class="no-results" id="no-results">
+            <h3>Ничего не найдено</h3>
+            <p>Попробуйте изменить поисковый запрос или выберите другую категорию</p>
+        </div>
 
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">V2Box</div>
-                    <div class="card-title">Для смартфона и планшета</div>
-                    <div class="card-descr">Бесплатное приложение</div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box&amp;hl=en" target="_blank" class="btn btn-black">Скачать</a>
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
-                </div>
-            </div>
+        <!-- Секция: Тарифы и оплата -->
+        <div class="faq-section" id="tariffs">
+            <h2 class="section-title">Тарифы и оплата</h2>
             
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">V2Box</div>
-                    <div class="card-title">Для Smart TV (на Android)</div>
-                    <div class="card-descr"></div>
+            <div class="faq-item" data-category="tariffs">
+                <div class="faq-question">
+                    1. Какие тарифы есть в ИЗИ?
                 </div>
-                <div class="btn-wrapper">
-                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB?usp=sharing" target="_blank" class="btn btn-outline">Инструкция</a>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>В ИЗИ доступны следующие тарифные планы:</p>
+                        
+                        <div class="info">
+                            <p><strong>На всех тарифах:</strong> максимальная пропускная способность — до 10 Гб/с, но точная зависит от суммы факторов, таких как: удаленность сервера, фактическая скорость подключения на устройстве, количество промежуточных провайдеров.</p>
+                        </div>
+                        
+                        <div class="tariff-comparison">
+                            <div class="tariff-card">
+                                <div class="tariff-name">🌍 Стандарт</div>
+                                <div class="tariff-price">7₽ / день</div>
+                                <ul class="tariff-features">
+                                    <li>Универсальный сервис для повседневного использования</li>
+                                    <li>До 5 устройств в подписке</li>
+                                    <li>Трафик на приватном канале: 500 Гб + 500 Гб ExtraPass</li>
+                                    <li>Трафик на локальном канале: безлимитный</li>
+                                    <li>Поддержка через бота-помощника</li>
+                                    <li>Минимальный период: 30 дней</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tariff-card featured">
+                                <div class="tariff-name">✨ Премиум</div>
+                                <div class="tariff-price">33₽ / день</div>
+                                <ul class="tariff-features">
+                                    <li>Персональный VPS-сервер с выделенным IP</li>
+                                    <li>До 5 пользователей в одной подписке</li>
+                                    <li>Любая локация из доступных</li>
+                                    <li>Приоритетная поддержка без бота</li>
+                                    <li>Высокая стабильность соединения</li>
+                                    <li>Минимальный период: 30 дней</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-             <div class="card">
-                <div class="card-content">
-                    <div class="card-uptitle">Nekoray</div>
-                    <div class="card-title">Для смартфона и планшета</div>
-                    <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
+            <div class="faq-item" data-category="tariffs">
+                <div class="faq-question">
+                    2. Как оформить подписку?
                 </div>
-                <div class="btn-wrapper">
-                    <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.3.1/NB4A-1.3.1-arm64-v8a.apk" target="_blank" class="btn btn-black">Скачать</a>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Оформление подписки происходит в три простых шага:</p>
+                        <ol>
+                            <li><strong>Запустите бота в Telegram</strong> по адресу @izirocksbot</li>
+                            <li><strong>Выберите тариф</strong> в меню бота</li>
+                            <li><strong>Оплатите</strong> онлайн картой или через СБП</li>
+                            <li><strong>Получите ключ доступа</strong> для настройки приложений</li>
+                        </ol>
+                        <div class="note">
+                            <strong>Примечание:</strong> После оплаты вы сразу получаете доступ к сервису. Настройка приложений занимает 5-10 минут.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="tariffs">
+                <div class="faq-question">
+                    3. Как продлить тариф?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Есть два способа продления подписки:</p>
+                        
+                        <h4>Способ 1: Автоматическое продление</h4>
+                        <p>Дождитесь уведомления в чате от бота Сени и оплатите продление по полученной ссылке.</p>
+                        
+                        <h4>Способ 2: Предварительное пополнение</h4>
+                        <p>Пополните кошелек через раздел "Личный кабинет" в боте <strong>до даты продления</strong>.</p>
+                        
+                        <div class="warning">
+                            <strong>Важно:</strong> Если пополнить кошелек в дату продления, это не активирует автоматическое продление. В этом случае нужно воспользоваться ссылкой от Сени.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="tariffs">
+                <div class="faq-question">
+                    4. Как отменить подписку?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Чтобы отменить подписку, просто <strong>не оплачивайте продление</strong> и <strong>не пополняйте кошелек</strong>.</p>
+                        <p>После окончания оплаченного периода доступ к сервису будет автоматически прекращен.</p>
+                        <div class="info">
+                            <strong>Совет:</strong> Если вы хотите временно приостановить использование, но планируете вернуться, можно просто не продлевать подписку до нужного момента.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="tariffs">
+                <div class="faq-question">
+                    5. Как расторгнуть договор и возможен ли возврат средств?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Для расторжения договора воспользуйтесь Telegram-ботом @izirocksbot.</p>
+                        
+                        <div class="legal-note">
+                            <p><strong>Юридическая информация:</strong></p>
+                            <p>В соответствии с законодательством Турецкой Республики и условиями предоставления услуг:</p>
+                            <ul>
+                                <li>Услуги сервиса классифицируются как цифровой контент, предоставляемый мгновенно в электронной форме</li>
+                                <li>Согласно ст. 15(g) «Положения о дистанционных договорах» (Mesafeli Sözleşmeler Yönetmeliği) Турецкой Республики, право потребителя на отказ от договора (возврат средств) не распространяется на услуги, исполняемые мгновенно в электронной среде</li>
+                                <li>Все платежи являются окончательными и возврату не подлежат</li>
+                            </ul>
+                        </div>
+                        
+                        <p>Исключения:</p>
+                        <ul>
+                            <li>Платежи через Apple App Store регулируются правилами Apple</li>
+                            <li>Блокировка доступа государственными органами признается обстоятельством непреодолимой силы и не является основанием для возврата</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        
-         <div class="section-title">Linux:</div>
-         <div class="grid">
-             <div class="card">
-                 <div class="card-content">
-                     <div class="card-uptitle">Hiddify</div>
-                     <div class="card-title">Для Linux</div>
-                     <div class="card-descr">(!) Поддержку не оказываем ни в каком виде</div>
-                 </div>
-                 <div class="btn-wrapper">
-                     <a href="https://github.com/hiddify/hiddify-app/blob/main/README_ru.md" target="_blank" class="btn btn-black">Скачать</a>
-                 </div>
-             </div>
-         </div>
+
+        <!-- Секция: Приложения -->
+        <div class="faq-section" id="apps">
+            <h2 class="section-title">Приложения</h2>
+            
+            <div class="faq-item" data-category="apps">
+                <div class="faq-question">
+                    Где скачать приложения и как их настроить?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <div class="apps-disclaimer">
+                            <strong>Диклеймер: У ИЗИ нет собственного приложения в традиционном понимании, мы обслуживаем сеть и серверы.</strong>
+                            Мы используем решения с открытым исходным кодом, чтобы обеспечить прозрачность работы сервиса. Эти приложения разработаны сторонними разработчиками, но они полностью совместимы с нашим сервисом. Также вы можете использовать любые другие, совместимые с протоколом VLESS, однако поддержку по ним оказать не сможем.
+                        </div>
+
+                        <!-- Apple -->
+                        <h3 class="apps-platform-title">Apple</h3>
+                        <div class="apps-grid">
+                            <!-- Apple карточки (остаются те же) -->
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">V2Box</div>
+                                    <h4 class="app-card-title">Для iOS, iPadOS и MacOS</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение. Присутствует реклама от разработчика
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Streisand</div>
+                                    <h4 class="app-card-title">Для iPhone, iPad и MacOS</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://apps.apple.com/app/id6450534064" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Hiddify</div>
+                                    <h4 class="app-card-title">Для MacOS на Intel и Silicon</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/Hiddify-MacOS.dmg" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Hiddify</div>
+                                    <h4 class="app-card-title">Для iPhone и iPad</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение. Недоступно в российской AppStore
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://apps.apple.com/app/id6596777532" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Shadowrocket</div>
+                                    <h4 class="app-card-title">Для iOS, iPadOS и MacOS</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Платное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://apps.apple.com/ru/app/shadowrocket/id932747118" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Shadowrocket</div>
+                                    <h4 class="app-card-title">Для Apple TV</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Платное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://apps.apple.com/ru/app/shadowrocket/id932747118" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Windows -->
+                        <h3 class="apps-platform-title">Windows</h3>
+                        <div class="apps-grid">
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Hiddify</div>
+                                    <h4 class="app-card-title">Для Windows</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://github.com/hiddify/hiddify-app/blob/main/README_ru.md" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Nekoray</div>
+                                    <h4 class="app-card-title">Для Windows</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Поддержку не оказываем ни в каком виде
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" class="btn btn-primary">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Android -->
+                        <h3 class="apps-platform-title">Android</h3>
+                        <div class="apps-grid">
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Hiddify</div>
+                                    <h4 class="app-card-title">Для смартфона и планшета</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">V2Box</div>
+                                    <h4 class="app-card-title">Для смартфона и планшета</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Бесплатное приложение
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box&hl=en" target="_blank" class="btn btn-primary">Скачать</a>
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">V2Box</div>
+                                    <h4 class="app-card-title">Для Smart TV (на Android)</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Настройка для телевизоров
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://drive.google.com/drive/folders/1UKGT0MzZyN3pr0U2PXzKS5FVHT1quppB" target="_blank" class="btn btn-secondary">Инструкция</a>
+                                </div>
+                            </div>
+
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Nekoray</div>
+                                    <h4 class="app-card-title">Для смартфона и планшета</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Поддержку не оказываем ни в каком виде
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/download/1.3.1/NB4A-1.3.1-arm64-v8a.apk" target="_blank" class="btn btn-primary">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Linux -->
+                        <h3 class="apps-platform-title">Linux</h3>
+                        <div class="apps-grid">
+                            <div class="app-card">
+                                <div class="app-card-header">
+                                    <div class="app-card-platform">Hiddify</div>
+                                    <h4 class="app-card-title">Для Linux</h4>
+                                </div>
+                                <div class="app-card-description">
+                                    Поддержку не оказываем ни в каком виде
+                                </div>
+                                <div class="app-card-buttons">
+                                    <a href="https://github.com/hiddify/hiddify-app/blob/main/README_ru.md" target="_blank" class="btn btn-primary">Скачать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция: Конфиденциальность -->
+        <div class="faq-section" id="privacy">
+            <h2 class="section-title">Конфиденциальность и безопасность</h2>
+            
+            <div class="faq-item" data-category="privacy">
+                <div class="faq-question">
+                    Какие данные вы собираете?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <h3>Данные, которые мы НЕ собираем (Zero Logs Policy):</h3>
+                        <ul>
+                            <li>Историю посещенных веб-сайтов (URL) и поисковые запросы</li>
+                            <li>DNS-запросы</li>
+                            <li>Содержимое передаваемых данных (файлы, сообщения, письма)</li>
+                            <li>Ваш исходный IP-адрес при использовании сервиса</li>
+                        </ul>
+                        
+                        <h3>Данные, которые мы собираем (техническая необходимость):</h3>
+                        <ul>
+                            <li><strong>Учетные данные:</strong> UUID/ключ доступа для авторизации, email (опционально, для восстановления доступа)</li>
+                            <li><strong>Статистика использования:</strong> Объем трафика для учета лимитов, дата и время последнего подключения</li>
+                            <li><strong>Статус подписки:</strong> Срок действия и активность ключа</li>
+                        </ul>
+                        
+                        <div class="note">
+                            <strong>Важно:</strong> Мы не используем сторонние маркетинговые трекеры в приложениях.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="privacy">
+                <div class="faq-question">
+                    Как обеспечивается безопасность платежей?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Мы не обрабатываем и не храним данные ваших банковских карт:</p>
+                        <ul>
+                            <li><strong>App Store / Google Play:</strong> Транзакции обрабатываются магазинами приложений</li>
+                            <li><strong>Криптовалюты:</strong> Мы видим только хеш транзакции в блокчейне</li>
+                            <li><strong>Карты РФ:</strong> Оплата происходит на стороне платежного провайдера</li>
+                        </ul>
+                        <p>Мы получаем только информацию о статусе операции для активации услуги.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="privacy">
+                <div class="faq-question">
+                    Как долго хранятся мои данные?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <ul>
+                            <li><strong>Технические данные:</strong> Хранятся в течение срока действия подписки и краткий период после её окончания</li>
+                            <li><strong>Данные аккаунта:</strong> Если подписка не продлевается, данные могут быть удалены через 90 дней неактивности</li>
+                            <li><strong>По запросу:</strong> Вы можете запросить полное удаление данных через службу поддержки</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция: Использование -->
+        <div class="faq-section" id="usage">
+            <h2 class="section-title">Использование сервиса</h2>
+            
+            <div class="faq-item" data-category="usage">
+                <div class="faq-question">
+                    Сколько устройств можно подключить одновременно?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>На всех тарифах доступно подключение <strong>до 5 устройств</strong> на один аккаунт.</p>
+                        <p>Вы можете использовать сервис на:</p>
+                        <ul>
+                            <li>Смартфоне</li>
+                            <li>Планшете</li>
+                            <li>Компьютере (Windows, macOS, Linux)</li>
+                            <li>Smart TV</li>
+                            <li>Роутере</li>
+                        </ul>
+                        <div class="info">
+                            <strong>Совет:</strong> Для тарифа "Премиум" доступно до 5 пользователей в одной подписке.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="usage">
+                <div class="faq-question">
+                    Что делать, если не открывается определённый сайт или сервис через VPN?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Если у вас не открывается определённый сайт или сервис, следуйте этой инструкции:</p>
+                        
+                        <ol>
+                            <li><strong>Определите, где не открывается сервис:</strong> в приложении или в браузере?</li>
+                            <li><strong>Если в приложении не открывается:</strong> попробуйте открыть тот же сайт в браузере. Если в браузере открывается, значит проблема в приложении на вашем устройстве.</li>
+                            <li><strong>Если в браузере тоже не открывается:</strong>
+                                <ul>
+                                    <li>Почистите кэш браузера или воспользуйтесь режимом инкогнито</li>
+                                    <li>Если в режиме инкогнито сайт открылся, значит всё с нашей стороны в порядке</li>
+                                </ul>
+                            </li>
+                            <li><strong>Обязательно проверьте:</strong>
+                                <ul>
+                                    <li>Включён ли VPN подключение</li>
+                                    <li>Есть ли у сервиса специальные ограничения для пользователей из России</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <div class="warning">
+                            <strong>Важно:</strong> Некоторые сервисы (например, Spotify, Netflix) специально блокируют российские IP-адреса, даже если вы используете VPN. Они могут определять, что IP принадлежит VPN-сервису, и блокировать его.
+                        </div>
+                        
+                        <div class="info">
+                            <p><strong>Если сервис блокирует российские IP-адреса,</strong> то в этом случае мы ничем помочь не можем. Мы помогаем обходить только государственные блокировки, но не можем обойти блокировки со стороны самих сервисов.</p>
+                        </div>
+                        
+                        <p>Если после всех проверок сайт всё равно не открывается и вы уверены, что проблема не в блокировке со стороны сервиса, обратитесь в поддержку.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="usage">
+                <div class="faq-question">
+                    Что запрещено делать при использовании сервиса?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <div class="warning">
+                            <strong>Строго запрещенные действия:</strong>
+                        </div>
+                        <ul>
+                            <li>Использование протоколов P2P (BitTorrent) и скачивание торрентов</li>
+                            <li>Рассылка спама (включая массовую рассылку email через порт 25)</li>
+                            <li>Распространение вредоносного ПО, вирусов, управление ботнетами</li>
+                            <li>Сетевые атаки: сканирование портов, подбор паролей, DDoS-атаки</li>
+                            <li>Распространение детской порнографии и материалов, пропагандирующих терроризм</li>
+                        </ul>
+                        
+                        <div class="note">
+                            <p><strong>Последствия нарушений:</strong> Нарушение правил влечет немедленную блокировку аккаунта без права на восстановление и без возврата денежных средств.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция: Юридические вопросы -->
+        <div class="faq-section" id="legal">
+            <h2 class="section-title">Юридические вопросы</h2>
+            
+            <div class="faq-item" data-category="legal">
+                <div class="faq-question">
+                    Какая юрисдикция регулирует соглашение?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <div class="legal-note">
+                            <p><strong>Юрисдикция:</strong> Анкара, Турция</p>
+                            <p><strong>Регулирующее законодательство:</strong> Законодательство Турецкой Республики</p>
+                            <p><strong>Защита данных:</strong> Закон № 6698 «О защите персональных данных» (KVKK)</p>
+                            <p><strong>Разрешение споров:</strong> Все споры подлежат разрешению в судах г. Анкара, Турция</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="legal">
+                <div class="faq-question">
+                    Какова политика честного использования (Fair Use)?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Сервис предназначен для личного, некоммерческого использования.</p>
+                        <p>Для безлимитных тарифов действуют ограничения:</p>
+                        <ul>
+                            <li>Если объем трафика превышает 3 ТБ в месяц <strong>И</strong></li>
+                            <li>Сервис фиксирует аномальную нагрузку на канал</li>
+                        </ul>
+                        <p>В этом случае мы оставляем за собой право ограничить скорость соединения или приостановить доступ до конца расчетного периода.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="legal">
+                <div class="faq-question">
+                    Каковы гарантии работы сервиса?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <div class="legal-note">
+                            <p><strong>Условия предоставления услуг:</strong></p>
+                            <ul>
+                                <li>Сервис предоставляется на условиях «как есть» (as is)</li>
+                                <li>Мы не гарантируем безошибочную и бесперебойную работу</li>
+                                <li>Мы не гарантируем совместимость с сетями конкретных интернет-провайдеров</li>
+                                <li>Мы не несем ответственности за убытки, включая упущенную выгоду</li>
+                                <li>Блокировка доступа государственными органами признается обстоятельством непреодолимой силы</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="legal">
+                <div class="faq-question">
+                    Как сервис реагирует на запросы правоохранительных органов Турецкой Республики?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>В случае получения официальных запросов от правоохранительных органов <strong>Турецкой Республики</strong> мы действуем в рамках закона, соблюдая законодательство Турецкой Республики.</p>
+                        <p>Однако наша архитектура не позволяет предоставить:</p>
+                        <ul>
+                            <li>Данные о посещенных сайтах</li>
+                            <li>Содержимое переписки</li>
+                            <li>Связь между IP-адресом и активностью</li>
+                        </ul>
+                        <p>Мы можем подтвердить только наличие аккаунта, сроки его действия и объем потребленного трафика.</p>
+                        <div class="note">
+                            <strong>Важно:</strong> В соответствии с законодательством Турецкой Республики, мы обязаны сотрудничать с правоохранительными органами Турции. Однако наша система спроектирована таким образом, что не хранит данные, которые могли бы нарушить вашу приватность.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <footer>
         <div>© Since 2022. izi.rocks</div>
+        <div class="footer-links">
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Пользовательское соглашение</a>
+            <a href="#">Поддержка платежей</a>
+        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Аккордеон
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    item.classList.toggle('active');
+                });
+                
+                // Поддержка клавиатуры
+                question.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        question.click();
+                    }
+                });
+            });
+
+            // Фильтрация по категориям
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const faqSections = document.querySelectorAll('.faq-section');
+            const noResults = document.getElementById('no-results');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Убираем активный класс у всех кнопок
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    // Добавляем активный класс нажатой кнопке
+                    btn.classList.add('active');
+                    
+                    const category = btn.dataset.category;
+                    
+                    // Скрываем сообщение "нет результатов"
+                    noResults.style.display = 'none';
+                    
+                    // Показываем/скрываем элементы
+                    let foundItems = false;
+                    faqItems.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.style.display = 'block';
+                            foundItems = true;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Показываем/скрываем секции
+                    faqSections.forEach(section => {
+                        const itemsInSection = section.querySelectorAll('.faq-item');
+                        const visibleItems = Array.from(itemsInSection).filter(item => 
+                            item.style.display === 'block'
+                        );
+                        
+                        if (category === 'all' || visibleItems.length > 0) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                    
+                    // Прокручиваем к соответствующей секции
+                    if (category !== 'all') {
+                        const section = document.getElementById(category);
+                        if (section) {
+                            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                    
+                    // Если ничего не найдено, показываем сообщение
+                    if (!foundItems && category !== 'all') {
+                        noResults.style.display = 'block';
+                    }
+                    
+                    // Закрываем все аккордеоны при смене категории
+                    faqItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                });
+                
+                // Поддержка клавиатуры для кнопок категорий
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        btn.click();
+                    }
+                });
+            });
+
+            // Поиск по FAQ
+            const searchInput = document.querySelector('.search-input');
+            const searchResults = document.querySelector('.search-results');
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (searchTerm.length === 0) {
+                    // Показываем все элементы при пустом поиске
+                    faqItems.forEach(item => {
+                        item.style.display = 'block';
+                        item.classList.remove('highlight');
+                    });
+                    faqSections.forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    noResults.style.display = 'none';
+                    searchResults.textContent = 'Начните вводить текст для поиска';
+                    
+                    // Восстанавливаем активную категорию
+                    const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+                    if (activeCategory !== 'all') {
+                        document.querySelector(`[data-category="${activeCategory}"]`).click();
+                    }
+                    return;
+                }
+                
+                let foundCount = 0;
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        item.classList.add('highlight');
+                        foundCount++;
+                        
+                        // Автоматически открываем найденный вопрос
+                        item.classList.add('active');
+                        
+                        // Снимаем выделение через 2 секунды
+                        setTimeout(() => {
+                            item.classList.remove('highlight');
+                        }, 2000);
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // Показываем/скрываем секции
+                faqSections.forEach(section => {
+                    const itemsInSection = section.querySelectorAll('.faq-item');
+                    const visibleItems = Array.from(itemsInSection).filter(item => 
+                        item.style.display === 'block'
+                    );
+                    
+                    if (visibleItems.length > 0) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+                
+                // Обновляем сообщение с результатами
+                if (foundCount > 0) {
+                    searchResults.textContent = `Найдено ${foundCount} ${getRussianWord(foundCount, ['результат', 'результата', 'результатов'])}`;
+                    noResults.style.display = 'none';
+                } else {
+                    searchResults.textContent = 'Ничего не найдено';
+                    noResults.style.display = 'block';
+                }
+                
+                // Если найдены элементы, сбрасываем фильтрацию по категориям
+                if (foundCount > 0) {
+                    categoryBtns.forEach(btn => {
+                        if (btn.dataset.category === 'all') {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                }
+            }
+            
+            // Дебаунс для поиска
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch, 300);
+            });
+            
+            // Поиск по Enter
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    clearTimeout(searchTimeout);
+                    performSearch();
+                }
+            });
+            
+            // Функция для склонения слов в русском языке
+            function getRussianWord(number, words) {
+                const cases = [2, 0, 1, 1, 1, 2];
+                return words[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+            }
+            
+            // Обработка изменения ориентации экрана
+            let previousOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+            
+            window.addEventListener('resize', function() {
+                const currentOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+                
+                if (previousOrientation !== currentOrientation) {
+                    previousOrientation = currentOrientation;
+                    // При смене ориентации можно выполнить дополнительные действия
+                }
+            });
+            
+            // Поддержка touch-событий для лучшей производительности на мобильных
+            if ('ontouchstart' in window) {
+                document.documentElement.style.cursor = 'pointer';
+            }
+        });
+    </script>
 
 </body>
 </html>
