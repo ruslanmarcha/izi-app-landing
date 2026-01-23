@@ -587,6 +587,103 @@
             100% { background-color: rgba(255, 235, 59, 0.3); }
         }
 
+        /* === СТИЛИ ДЛЯ НОВОГО РАЗДЕЛА === */
+        .troubleshooting-steps {
+            counter-reset: step-counter;
+            margin: 20px 0;
+        }
+
+        .troubleshooting-step {
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            position: relative;
+            padding-left: 70px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .troubleshooting-step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .troubleshooting-step.warning-step {
+            border-left-color: #ff9800;
+        }
+
+        .troubleshooting-step.warning-step::before {
+            background: #ff9800;
+        }
+
+        .troubleshooting-step.info-step {
+            border-left-color: #2196F3;
+        }
+
+        .troubleshooting-step.info-step::before {
+            background: #2196F3;
+        }
+
+        .troubleshooting-step-content {
+            flex: 1;
+        }
+
+        .troubleshooting-step h4 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .troubleshooting-step p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .troubleshooting-step ul {
+            margin: 8px 0 0 15px;
+            padding: 0;
+        }
+
+        .troubleshooting-step li {
+            margin: 4px 0;
+        }
+
+        .troubleshooting-important {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .troubleshooting-note {
+            background: #e8f4fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
         /* === ОПТИМИЗАЦИЯ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ (до 320px) === */
         @media (max-width: 320px) {
             :root {
@@ -623,6 +720,18 @@
             .btn {
                 padding: 12px 16px;
                 min-height: 44px;
+            }
+            
+            .troubleshooting-step {
+                padding: 15px 15px 15px 60px;
+                min-height: 70px;
+            }
+            
+            .troubleshooting-step::before {
+                left: 15px;
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
             }
         }
 
@@ -758,6 +867,32 @@
                 background-color: #333;
                 border-color: var(--text-color);
             }
+            
+            /* Темная тема для новых элементов */
+            .troubleshooting-step {
+                background: #2a2a2a;
+                border-left-color: #4CAF50;
+            }
+            
+            .troubleshooting-step.warning-step {
+                border-left-color: #ff9800;
+            }
+            
+            .troubleshooting-step.info-step {
+                border-left-color: #2196F3;
+            }
+            
+            .troubleshooting-important {
+                background: #332b00;
+                border-color: #665800;
+                color: #ffecb3;
+            }
+            
+            .troubleshooting-note {
+                background: #002633;
+                border-color: #004a7a;
+                color: #bbdefb;
+            }
         }
 
         /* === УЛУЧШЕНИЕ ДОСТУПНОСТИ === */
@@ -819,6 +954,7 @@
             <button class="category-btn" data-category="apps">Приложения</button>
             <button class="category-btn" data-category="privacy">Конфиденциальность</button>
             <button class="category-btn" data-category="usage">Использование</button>
+            <button class="category-btn" data-category="troubleshooting">Решение проблем</button>
             <button class="category-btn" data-category="legal">Юридические вопросы</button>
         </div>
 
@@ -826,6 +962,166 @@
         <div class="no-results" id="no-results">
             <h3>Ничего не найдено</h3>
             <p>Попробуйте изменить поисковый запрос или выберите другую категорию</p>
+        </div>
+
+        <!-- Секция: Решение проблем -->
+        <div class="faq-section" id="troubleshooting">
+            <h2 class="section-title">Решение проблем</h2>
+            
+            <div class="faq-item" data-category="troubleshooting">
+                <div class="faq-question">
+                    VPN не работает совсем — пошаговая инструкция
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Если VPN не работает совсем, следуйте этой пошаговой инструкции:</p>
+                        
+                        <div class="troubleshooting-steps">
+                            <!-- Шаг 1 -->
+                            <div class="troubleshooting-step">
+                                <div class="troubleshooting-step-content">
+                                    <h4>Проверка лимита трафика</h4>
+                                    <p><strong>Для новых серверов на тарифе "Стандарт" с префиксом HİD:</strong></p>
+                                    <ul>
+                                        <li>Ваш ключ доступа имеет вид обычной ссылки</li>
+                                        <li>Нажмите на эту ссылку, откроется страница где будет отображаться остаток трафика</li>
+                                        <li>Если лимит трафика закончился (отображается 0), значит проблема в этом</li>
+                                    </ul>
+                                    <div class="troubleshooting-note">
+                                        <strong>Если лимит закончился:</strong> запросите опцию ExtraPass в личном кабинете бота
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Шаг 2 -->
+                            <div class="troubleshooting-step">
+                                <div class="troubleshooting-step-content">
+                                    <h4>Проверка статуса сервера</h4>
+                                    <p>Если лимит трафика не закончился, либо у вас:</p>
+                                    <ul>
+                                        <li>Ключ доступа в старом формате (не в виде ссылки)</li>
+                                        <li>Вы пользователь тарифа "Премиум"</li>
+                                    </ul>
+                                    <p>Проверьте, нет ли сбоя на сервере:</p>
+                                    <ol>
+                                        <li>Откройте ссылку: <a href="https://stats.uptimerobot.com/oBuWljKQxn" target="_blank" style="color: #2196F3; font-weight: 600;">https://stats.uptimerobot.com/oBuWljKQxn</a></li>
+                                        <li>В списке найдите свой сервер (название сервера мы отображаем в приветственном сообщении от бота по команде /START)</li>
+                                        <li>Если сервер горит <strong style="color: #4CAF50;">зелёным</strong> прямо сейчас — значит с ним всё в порядке и общих проблем нет</li>
+                                        <li>Если сервер горит <strong style="color: #f44336;">красным</strong> прямо сейчас — значит он недоступен, и мы уже в курсе</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="troubleshooting-important">
+                                ⚠️ Если сервер горит красным — дальше проверять ничего не нужно, мы уже решаем проблему
+                            </div>
+
+                            <!-- Шаг 3 -->
+                            <div class="troubleshooting-step info-step">
+                                <div class="troubleshooting-step-content">
+                                    <h4>Переустановка приложения (если сервер зелёный)</h4>
+                                    <ol>
+                                        <li>Удалите приложение VPN с устройства</li>
+                                        <li>Откройте страницу с поддержкой в боте:
+                                            <ul>
+                                                <li>Нажмите на аватарку бота</li>
+                                                <li>Нажмите на кнопку "Открыть"</li>
+                                            </ul>
+                                        </li>
+                                        <li>Скачайте приложение заново (там же есть PDF-файлы с инструкциями)</li>
+                                        <li>Настройте приложение <strong>строго по инструкции</strong>, не исключая и не пропуская ни один пункт</li>
+                                    </ol>
+                                    <div class="troubleshooting-note">
+                                        <strong>Важно:</strong> Если через мобильную сеть не получилось активировать ключ, попробуйте через Wi-Fi. Если через Wi-Fi не получилось — попробуйте через мобильную сеть.
+                                    </div>
+                                    <div class="troubleshooting-important">
+                                        ❗ Если пропустить хотя бы один пункт инструкции — ничего не заработает
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Шаг 4 -->
+                            <div class="troubleshooting-step warning-step">
+                                <div class="troubleshooting-step-content">
+                                    <h4>Установка альтернативного приложения</h4>
+                                    <p>Если переустановка не помогла:</p>
+                                    <ol>
+                                        <li>Установите второе (альтернативное) приложение также по той же ссылке</li>
+                                        <li>Также выполните все инструкции строго, не пропуская пункты</li>
+                                        <li>Ключ доступа всегда можно найти в личном кабинете в разделе управления подпиской</li>
+                                    </ol>
+                                    <div class="troubleshooting-note">
+                                        <strong>Важно:</strong> Если через мобильную сеть не получилось активировать ключ, попробуйте через Wi-Fi. Если через Wi-Fi не получилось — попробуйте через мобильную сеть.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Шаг 5 -->
+                            <div class="troubleshooting-step">
+                                <div class="troubleshooting-step-content">
+                                    <h4>Обращение в поддержку</h4>
+                                    <p>Если установка второго приложения тоже не помогла:</p>
+                                    <ul>
+                                        <li>Отправьте запрос в поддержку через бота</li>
+                                        <li>Опишите подробно, какие шаги вы выполнили</li>
+                                        <li>Укажите название своего сервера</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="warning">
+                            <strong>Краткое напоминание:</strong>
+                            <ul>
+                                <li>Сначала проверьте лимит трафика (для новых серверов HİD)</li>
+                                <li>Проверьте статус сервера по ссылке мониторинга</li>
+                                <li>Переустановите приложение строго по инструкции</li>
+                                <li>Попробуйте альтернативное приложение</li>
+                                <li>Пробуйте разные типы сети (Wi-Fi/мобильная) при активации</li>
+                                <li>Если ничего не помогает — пишите в поддержку</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="troubleshooting">
+                <div class="faq-question">
+                    Что делать, если не открывается определённый сайт или сервис через VPN?
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Если у вас не открывается определённый сайт или сервис, следуйте этой инструкции:</p>
+                        
+                        <ol>
+                            <li><strong>Определите, где не открывается сервис:</strong> в приложении или в браузере?</li>
+                            <li><strong>Если в приложении не открывается:</strong> попробуйте открыть тот же сайт в браузере. Если в браузере открывается, значит проблема в приложении на вашем устройстве.</li>
+                            <li><strong>Если в браузере тоже не открывается:</strong>
+                                <ul>
+                                    <li>Почистите кэш браузера или воспользуйтесь режимом инкогнито</li>
+                                    <li>Если в режиме инкогнито сайт открылся, значит всё с нашей стороны в порядке</li>
+                                </ul>
+                            </li>
+                            <li><strong>Обязательно проверьте:</strong>
+                                <ul>
+                                    <li>Включён ли VPN подключение</li>
+                                    <li>Есть ли у сервиса специальные ограничения для пользователей из России</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <div class="warning">
+                            <strong>Важно:</strong> Некоторые сервисы (например, Spotify, Netflix) специально блокируют российские IP-адреса, даже если вы используете VPN. Они могут определять, что IP принадлежит VPN-сервису, и блокировать его.
+                        </div>
+                        
+                        <div class="info">
+                            <p><strong>Если сервис блокирует российские IP-адреса,</strong> то в этом случае мы ничем помочь не можем. Мы помогаем обходить только государственные блокировки, но не можем обойти блокировки со стороны самих сервисов.</p>
+                        </div>
+                        
+                        <p>Если после всех проверок сайт всё равно не открывается и вы уверены, что проблема не в блокировке со стороны сервиса, обратитесь в поддержку.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Секция: Тарифы и оплата -->
@@ -1260,44 +1556,6 @@
                         <div class="info">
                             <strong>Совет:</strong> Для тарифа "Премиум" доступно до 5 пользователей в одной подписке.
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item" data-category="usage">
-                <div class="faq-question">
-                    Что делать, если не открывается определённый сайт или сервис через VPN?
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p>Если у вас не открывается определённый сайт или сервис, следуйте этой инструкции:</p>
-                        
-                        <ol>
-                            <li><strong>Определите, где не открывается сервис:</strong> в приложении или в браузере?</li>
-                            <li><strong>Если в приложении не открывается:</strong> попробуйте открыть тот же сайт в браузере. Если в браузере открывается, значит проблема в приложении на вашем устройстве.</li>
-                            <li><strong>Если в браузере тоже не открывается:</strong>
-                                <ul>
-                                    <li>Почистите кэш браузера или воспользуйтесь режимом инкогнито</li>
-                                    <li>Если в режиме инкогнито сайт открылся, значит всё с нашей стороны в порядке</li>
-                                </ul>
-                            </li>
-                            <li><strong>Обязательно проверьте:</strong>
-                                <ul>
-                                    <li>Включён ли VPN подключение</li>
-                                    <li>Есть ли у сервиса специальные ограничения для пользователей из России</li>
-                                </ul>
-                            </li>
-                        </ol>
-                        
-                        <div class="warning">
-                            <strong>Важно:</strong> Некоторые сервисы (например, Spotify, Netflix) специально блокируют российские IP-адреса, даже если вы используете VPN. Они могут определять, что IP принадлежит VPN-сервису, и блокировать его.
-                        </div>
-                        
-                        <div class="info">
-                            <p><strong>Если сервис блокирует российские IP-адреса,</strong> то в этом случае мы ничем помочь не можем. Мы помогаем обходить только государственные блокировки, но не можем обойти блокировки со стороны самих сервисов.</p>
-                        </div>
-                        
-                        <p>Если после всех проверок сайт всё равно не открывается и вы уверены, что проблема не в блокировке со стороны сервиса, обратитесь в поддержку.</p>
                     </div>
                 </div>
             </div>
